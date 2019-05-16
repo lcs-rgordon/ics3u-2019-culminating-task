@@ -30,7 +30,7 @@ public class SideScrollingWorld extends World
     
     // Defining the boundaries of the scrollable world
     // TO STUDENTS: Modify SCROLLABLE_WIDTH if you wish to have a longer level
-    public static final int SCROLLABLE_WIDTH = VISIBLE_WIDTH * 3;
+    public static final int SCROLLABLE_WIDTH = VISIBLE_WIDTH;
     private static final int SCROLLABLE_HEIGHT = VISIBLE_HEIGHT;
 
     // Hero
@@ -64,9 +64,7 @@ public class SideScrollingWorld extends World
         // TO STUDENTS: Add, revise, or remove methods as needed to define your own game's world
         addLeftGround();
         addFences();
-        addMetalPlateSteps();
         addClouds();
-        addRightGround();
         addHero();
     }
 
@@ -114,42 +112,6 @@ public class SideScrollingWorld extends World
         y = VISIBLE_HEIGHT - HALF_TILE_SIZE - TILE_SIZE;
         Fence fence3 = new Fence(x, y);
         addObject(fence3, x, y);
-
-        // Two fences on right side of world
-        x = SCROLLABLE_WIDTH - HALF_TILE_SIZE - TILE_SIZE * 3;
-        y = VISIBLE_HEIGHT / 2;
-        Fence fence4 = new Fence(x, y);
-        addObject(fence4, x, y);
-
-        x = SCROLLABLE_WIDTH - HALF_TILE_SIZE - TILE_SIZE * 4;
-        y = VISIBLE_HEIGHT / 2;
-        Fence fence5 = new Fence(x, y);
-        addObject(fence5, x, y);
-    }
-
-    /**
-     * Add steps made out of metal plates leading to end of world.
-     */
-    private void addMetalPlateSteps()
-    {
-        // How many plates total?
-        final int COUNT_OF_METAL_PLATES = 20;
-        final int PLATES_PER_GROUP = 4;
-
-        // Add groups of plates
-        for (int i = 0; i < COUNT_OF_METAL_PLATES / PLATES_PER_GROUP; i += 1)
-        {
-            // Group of four metal plates all at same y position
-            int y = VISIBLE_HEIGHT - HALF_TILE_SIZE * 3 - i * TILE_SIZE;
-
-            // Add the individual plates in a given group
-            for (int j = 0; j < PLATES_PER_GROUP; j += 1)
-            {
-                int x = VISIBLE_WIDTH + TILE_SIZE * 2 + TILE_SIZE * (i + j) + TILE_SIZE * 5 * i;
-                MetalPlate plate = new MetalPlate(x, y);
-                addObject(plate, x, y);
-            }
-        }
     }
 
     /**
@@ -161,8 +123,6 @@ public class SideScrollingWorld extends World
         addObject(cloud1, 170, 125);
         Cloud cloud2 = new Cloud(450, 175);
         addObject(cloud2, 450, 175);
-        Cloud cloud3 = new Cloud(775, 50);
-        addObject(cloud3, 775, 50);
     }
 
     /**
@@ -187,45 +147,6 @@ public class SideScrollingWorld extends World
 
         // Add hero in bottom left corner of screen
         addObject(theHero, initialX, getHeight() / 4 * 3);
-    }
-
-    /**
-     * Add blocks to create the ground to walk on at top-right of scrollable world.
-     */
-    private void addRightGround()
-    {
-        // Constants to control dimensions of the ground at end of world
-        final int COUNT_OF_GROUND = 8;
-        final int GROUND_BELOW_COLUMNS = COUNT_OF_GROUND;
-        final int GROUND_BELOW_ROWS = 6;
-        final int COUNT_OF_GROUND_BELOW = GROUND_BELOW_COLUMNS * GROUND_BELOW_ROWS;
-
-        // 1. Make ground at end of level (top layer)
-        for (int i = 0; i < COUNT_OF_GROUND; i += 1)
-        {
-            // Position in wider scrollable world
-            int x = SCROLLABLE_WIDTH - HALF_TILE_SIZE - i * TILE_SIZE;
-            int y = HALF_VISIBLE_HEIGHT + TILE_SIZE;
-
-            // Create object and add it
-            Ground ground = new Ground(x, y);
-            addObject(ground, x, y);
-        }
-
-        // 2. Make sub-ground at end of level (below top layer)
-        for (int i = 0; i < GROUND_BELOW_COLUMNS; i += 1)
-        {
-            for (int j = 0; j < GROUND_BELOW_ROWS; j += 1)
-            {
-                // Position in wider scrollable world
-                int x = SCROLLABLE_WIDTH - HALF_TILE_SIZE - i * TILE_SIZE;
-                int y = HALF_VISIBLE_HEIGHT + TILE_SIZE + TILE_SIZE * (j + 1);
-
-                // Create object and add it
-                GroundBelow groundBelow = new GroundBelow(x, y);
-                addObject(groundBelow, x, y);
-            }
-        }
     }
 
     /**

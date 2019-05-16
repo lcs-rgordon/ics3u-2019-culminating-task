@@ -337,7 +337,7 @@ public class Hero extends Actor
             // So... actually move the actor within the visible world.
 
             // Allow movement only when not at edge of world
-            if (currentScrollableWorldXPosition < world.SCROLLABLE_WIDTH - this.getImage().getWidth() / 2)
+            if (currentScrollableWorldXPosition < world.SCROLLABLE_WIDTH)
             {
                 // Move to right in visible world
                 int newVisibleWorldXPosition = getX() + deltaX;
@@ -345,14 +345,6 @@ public class Hero extends Actor
 
                 // Track position in wider scrolling world
                 currentScrollableWorldXPosition += deltaX;
-            }
-            else
-            {
-                isGameOver = true;
-                world.setGameOver();
-
-                // Tell the user game is over
-                world.showText("LEVEL COMPLETE", world.getWidth() / 2, world.getHeight() / 2);
             }
 
         }
