@@ -14,10 +14,10 @@ public class Viga extends Player
      * 
      * Runs once when this object is created
      */
-    Viga(int startingX, String moveLeftWithKey, String moveRightWithKey, String jumpWithKey)
+    Viga(int startingX, String moveLeftWithKey, String moveRightWithKey, String jumpWithKey, String punchWithKey)
     {
         // Invoke the superclass constructor
-        super(startingX, "viga", 2, moveLeftWithKey, moveRightWithKey, jumpWithKey);
+        super(startingX, "viga", 2, 3, moveLeftWithKey, moveRightWithKey, jumpWithKey, punchWithKey);
     }
 
     /**

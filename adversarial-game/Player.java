@@ -39,6 +39,12 @@ public abstract class Player extends Collision
     private static final String FACING_LEFT = "left";
     private String horizontalDirection;
 
+    // Keep track of what key to respond to
+    private String moveLeftKey;
+    private String moveRightKey;
+    private String jumpKey;
+    private String punchKey;
+
     // For walking animation
     private GreenfootImage walkingRightImages[];
     private GreenfootImage walkingLeftImages[];
@@ -46,14 +52,20 @@ public abstract class Player extends Collision
 
     // Keeps track of total number of walking image frames (varies by character)
     int countOfWalkingImages;
-    
-    // Keep track of what key to respond to
-    private String moveLeftKey;
-    private String moveRightKey;
-    private String jumpKey;
 
-    // Keeps track of what frame is currently being used in animation
+    // Keeps track of what frame is currently being used in walking animation
     private int walkingFrames;
+
+    // For walking animation
+    private GreenfootImage punchingRightImages[];
+    private GreenfootImage punchingLeftImages[];
+    private static final int PUNCH_ANIMATION_DELAY = 8;
+
+    // Keeps track of total number of walking image frames (varies by character)
+    int countOfPunchingImages;
+
+    // Keeps track of what frame is currently being used in walking animation
+    private int punchingFrames;
 
     // Name of player images
     private String imageNamePrefix;
@@ -63,16 +75,20 @@ public abstract class Player extends Collision
      * 
      * This runs once when the Player object is created.
      */
-    Player(int startingX, String playerName, int walkingImagesCount,
-            String moveLeftWithKey, String moveRightWithKey, String jumpWithKey)
+    Player(int startingX, String playerName, int walkingImagesCount, int punchingImagesCount,
+    String moveLeftWithKey, String moveRightWithKey, String jumpWithKey, String punchWithKey)
     {
-        // Assigned how many walking image frames there are
+        // Assign how many walking image frames there are
         countOfWalkingImages = walkingImagesCount;
-        
+
+        // Assign how many walking image frames there are
+        countOfPunchingImages = punchingImagesCount;
+
         // Assign keystrokes that this object will respond to
         moveLeftKey = moveLeftWithKey;
         moveRightKey = moveRightWithKey;
         jumpKey = jumpWithKey;
+        punchKey = punchWithKey;
 
         // Game on
         isGameOver = false;
@@ -89,6 +105,18 @@ public abstract class Player extends Collision
         // Set image
         setImage(imageNamePrefix + "-jump-down-right.png");
 
+        // Get images ready for walking animation
+        initializeWalkingImages();
+
+        // Get images ready for punching animation
+        initializePunchingImages();
+    }
+
+    /**
+     * Get images ready to animate walking.
+     */
+    private void initializeWalkingImages()
+    {
         // Initialize the 'walking' arrays
         walkingRightImages = new GreenfootImage[countOfWalkingImages];
         walkingLeftImages = new GreenfootImage[countOfWalkingImages];
@@ -108,13 +136,36 @@ public abstract class Player extends Collision
     }
 
     /**
+     * Get images ready to animate punching.
+     */
+    private void initializePunchingImages()
+    {
+        // Initialize the 'punching' arrays
+        punchingRightImages = new GreenfootImage[countOfPunchingImages];
+        punchingLeftImages = new GreenfootImage[countOfPunchingImages];
+
+        // Load walking images from disk
+        for (int i = 0; i < punchingRightImages.length; i++)
+        {
+            punchingRightImages[i] = new GreenfootImage(imageNamePrefix + "-punch-right-" + i + ".png");
+
+            // Create left-facing images by mirroring horizontally
+            punchingLeftImages[i] = new GreenfootImage(punchingRightImages[i]);
+            punchingLeftImages[i].mirrorHorizontally();
+        }
+
+        // Track animation frames for punching
+        punchingFrames = 0;
+    }
+
+    /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
     {
-        checkKeys();
         checkFall();
+        checkKeys();
         if (!isGameOver)
         {
             checkGameOver();
@@ -134,6 +185,11 @@ public abstract class Player extends Collision
         else if (Greenfoot.isKeyDown(moveRightKey) && !isGameOver)
         {
             moveRight();
+        }
+        else if (Greenfoot.isKeyDown(punchKey) && !isGameOver)
+        {
+            System.out.println("key received for punch");
+            punch();
         }
         else
         {
@@ -383,6 +439,39 @@ public abstract class Player extends Collision
             setLocation(newXPosition, getY());
         }            
 
+    }
+
+    /**
+     * Make a player punch.
+     */
+    private void punch()
+    {
+        // Track walking animation frames
+        punchingFrames += 1;
+
+        // Get current animation stage
+        int stage = punchingFrames / PUNCH_ANIMATION_DELAY;
+
+        // Animate
+        if (stage < punchingRightImages.length)
+        {
+            System.out.println("in punch method" + stage);
+            // Set image for this stage of the animation
+            if (horizontalDirection == FACING_RIGHT)
+            {
+                setImage(punchingRightImages[stage]);
+
+            }
+            else
+            {
+                setImage(punchingLeftImages[stage]);
+            }
+        }
+        else
+        {
+            // Start animation loop from beginning
+            punchingFrames = 0;
+        }
     }
 
     /**
