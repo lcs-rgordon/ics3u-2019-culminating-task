@@ -1,9 +1,9 @@
 #BlueJ class context
-comment0.target=SideScrollingWorld
+comment0.target=GameWorld
 comment0.text=\n\ Template\ for\ a\ side-scrolling\ platform\ game.\n\ \n\ @author\ R.\ Gordon\n\ @version\ May\ 8,\ 2019\n
 comment1.params=
-comment1.target=SideScrollingWorld()
-comment1.text=\n\ Constructor\ for\ objects\ of\ class\ SideScrollingWorld.\n
+comment1.target=GameWorld()
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ GameWorld.\n
 comment2.params=
 comment2.target=void\ setup()
 comment2.text=\n\ Set\ up\ the\ entire\ world.\n

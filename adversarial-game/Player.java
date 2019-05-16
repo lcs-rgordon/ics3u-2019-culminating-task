@@ -323,7 +323,7 @@ public abstract class Player extends Collision
         }
 
         // Get object reference to world
-        SideScrollingWorld world = (SideScrollingWorld) getWorld(); 
+        GameWorld world = (GameWorld) getWorld(); 
 
         if (getX() < world.VISIBLE_WIDTH)
         {
@@ -361,7 +361,7 @@ public abstract class Player extends Collision
         }
 
         // Get object reference to world
-        SideScrollingWorld world = (SideScrollingWorld) getWorld(); 
+        GameWorld world = (GameWorld) getWorld(); 
 
         // Don't let player go off left edge of scrollable world 
         // (Allow movement only when not at left edge)
@@ -381,7 +381,7 @@ public abstract class Player extends Collision
     public void checkGameOver()
     {
         // Get object reference to world
-        SideScrollingWorld world = (SideScrollingWorld) getWorld(); 
+        GameWorld world = (GameWorld) getWorld(); 
 
         // Vertical position where player no longer visible
         int offScreenVerticalPosition = (world.getHeight() + this.getImage().getHeight() / 2);

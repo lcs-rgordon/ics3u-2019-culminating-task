@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author R. Gordon
  * @version May 8, 2019
  */
-public class SideScrollingWorld extends World
+public class GameWorld extends World
 {
     /**
      * Instance variables
@@ -40,9 +40,9 @@ public class SideScrollingWorld extends World
     private boolean isGameOver;
 
     /**
-     * Constructor for objects of class SideScrollingWorld.
+     * Constructor for objects of class GameWorld.
      */
-    public SideScrollingWorld()
+    public GameWorld()
     {    
         // Create a new world with 640x480 cells with a cell size of 1x1 pixels.
         // Final argument of 'false' means that actors in the world are not restricted to the world boundary.
