@@ -43,13 +43,13 @@ public abstract class Player extends Collision
     private GreenfootImage walkingRightImages[];
     private GreenfootImage walkingLeftImages[];
     private static final int WALK_ANIMATION_DELAY = 8;
-    
+
     // Keeps track of total number of walking image frames
     int countOfWalkingImages;
-    
+
     // Keeps track of what frame is currently being used in animation
     private int walkingFrames;
-    
+
     // Name of player images
     private String imageNamePrefix;
 
@@ -62,7 +62,7 @@ public abstract class Player extends Collision
     {
         // Assigned how many walking image frames there are
         countOfWalkingImages = walkingImagesCount;
-        
+
         // Game on
         isGameOver = false;
 
@@ -71,7 +71,7 @@ public abstract class Player extends Collision
 
         // Facing right to start
         horizontalDirection = FACING_RIGHT;
-        
+
         // Set the image name prefix (guile, viga, et cetera);
         this.imageNamePrefix = playerName;
 

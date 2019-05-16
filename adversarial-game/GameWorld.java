@@ -35,6 +35,7 @@ public class GameWorld extends World
 
     // Main player
     Player playerOne;
+    Player playerTwo;
 
     // Track whether game is on
     private boolean isGameOver;
@@ -66,6 +67,7 @@ public class GameWorld extends World
         addFences();
         addClouds();
         addPlayerOne();
+        addPlayerTwo();
     }
 
     /**
@@ -147,6 +149,21 @@ public class GameWorld extends World
 
         // Add player in bottom left corner of screen
         addObject(playerOne, initialX, getHeight() / 4 * 3);
+    }
+
+    /**
+     * Add the main player to the world.
+     */
+    private void addPlayerTwo()
+    {
+        // Initial horizontal position
+        int initialX = VISIBLE_WIDTH - TILE_SIZE * 3;
+
+        // Instantiate the main player object object
+        playerTwo = new Guile(initialX);
+
+        // Add player in bottom left corner of screen
+        addObject(playerTwo, initialX, getHeight() / 4 * 3);
     }
 
     /**
