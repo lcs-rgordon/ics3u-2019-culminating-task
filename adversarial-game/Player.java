@@ -44,8 +44,13 @@ public abstract class Player extends Collision
     private GreenfootImage walkingLeftImages[];
     private static final int WALK_ANIMATION_DELAY = 8;
 
-    // Keeps track of total number of walking image frames
+    // Keeps track of total number of walking image frames (varies by character)
     int countOfWalkingImages;
+    
+    // Keep track of what key to respond to
+    private String moveLeftKey;
+    private String moveRightKey;
+    private String jumpKey;
 
     // Keeps track of what frame is currently being used in animation
     private int walkingFrames;
@@ -58,10 +63,16 @@ public abstract class Player extends Collision
      * 
      * This runs once when the Player object is created.
      */
-    Player(int startingX, String playerName, int walkingImagesCount)
+    Player(int startingX, String playerName, int walkingImagesCount,
+            String moveLeftWithKey, String moveRightWithKey, String jumpWithKey)
     {
         // Assigned how many walking image frames there are
         countOfWalkingImages = walkingImagesCount;
+        
+        // Assign keystrokes that this object will respond to
+        moveLeftKey = moveLeftWithKey;
+        moveRightKey = moveRightWithKey;
+        jumpKey = jumpWithKey;
 
         // Game on
         isGameOver = false;
@@ -116,11 +127,11 @@ public abstract class Player extends Collision
     private void checkKeys()
     {
         // Walking keys
-        if (Greenfoot.isKeyDown("left") && !isGameOver)
+        if (Greenfoot.isKeyDown(moveLeftKey) && !isGameOver)
         {
             moveLeft();
         }
-        else if (Greenfoot.isKeyDown("right") && !isGameOver)
+        else if (Greenfoot.isKeyDown(moveRightKey) && !isGameOver)
         {
             moveRight();
         }
@@ -131,7 +142,7 @@ public abstract class Player extends Collision
         }
 
         // Jumping
-        if (Greenfoot.isKeyDown("space") && !isGameOver)
+        if (Greenfoot.isKeyDown(jumpKey) && !isGameOver)
         {
             // Only able to jump when on a solid object
             if (onPlatform())

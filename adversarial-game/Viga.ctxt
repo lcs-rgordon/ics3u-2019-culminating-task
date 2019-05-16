@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Viga
 comment0.text=\n\ Write\ a\ description\ of\ class\ Viga\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=startingX
-comment1.target=Viga(int)
+comment1.params=startingX\ moveLeftWithKey\ moveRightWithKey\ jumpWithKey
+comment1.target=Viga(int,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 comment1.text=\n\ Constructor\n\ \n\ Runs\ once\ when\ this\ object\ is\ created\n
 comment2.params=
 comment2.target=void\ act()
