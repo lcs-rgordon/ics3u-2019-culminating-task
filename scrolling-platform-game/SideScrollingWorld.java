@@ -33,8 +33,8 @@ public class SideScrollingWorld extends World
     public static final int SCROLLABLE_WIDTH = VISIBLE_WIDTH;
     private static final int SCROLLABLE_HEIGHT = VISIBLE_HEIGHT;
 
-    // Hero
-    Hero theHero;
+    // Main player
+    Player theHero;
 
     // Track whether game is on
     private boolean isGameOver;
@@ -143,7 +143,7 @@ public class SideScrollingWorld extends World
         int initialX = TILE_SIZE * 3;
 
         // Instantiate the hero object
-        theHero = new Hero(initialX);
+        theHero = new Player(initialX);
 
         // Add hero in bottom left corner of screen
         addObject(theHero, initialX, getHeight() / 4 * 3);
@@ -152,7 +152,7 @@ public class SideScrollingWorld extends World
     /**
      * Return an object reference to the hero.
      */
-    public Hero getHero()
+    public Player getMainPlayer()
     {
         return theHero;
     }

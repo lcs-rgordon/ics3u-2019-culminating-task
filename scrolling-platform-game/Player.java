@@ -7,7 +7,7 @@ import java.util.List;
  * @author R. Gordon
  * @version May 8, 2019
  */
-public class Hero extends Actor
+public class Player extends Collision
 {
     /**
      * Instance variables
@@ -52,9 +52,9 @@ public class Hero extends Actor
     /**
      * Constructor
      * 
-     * This runs once when the Hero object is created.
+     * This runs once when the Player object is created.
      */
-    Hero(int startingX)
+    Player(int startingX)
     {
         // Set where hero begins horizontally
         currentScrollableWorldXPosition = startingX;
