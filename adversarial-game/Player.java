@@ -469,6 +469,20 @@ public abstract class Player extends Collision
         }
         else
         {
+            // Get world reference
+            GameWorld world = (GameWorld)getWorld();
+            
+            // Check here for hit
+            // (We have finished a punch and are touching another character)
+            if (this.touch(Player.class))
+            {
+                world.showText("Scored a punch", 100, 100);
+            }
+            else
+            {
+                world.showText("", 100, 100);
+            }
+            
             // Start animation loop from beginning
             punchingFrames = 0;
         }
