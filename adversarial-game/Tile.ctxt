@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Tile
+comment0.text=\n\ Abstract\ class\ used\ to\ move\ all\ subclasses\ when\ we\ need\ to\ make\ it\ look\ like\ the\ hero\ is\ moving.\n\ \n\ @author\ R.\ Gordon\n\ @version\ May\ 8,\ 2019\n
+comment1.params=scrollableWorldX\ scrollableWorldY
+comment1.target=Tile(int,\ int)
+comment1.text=\n\ Constructor\n\ \n\ This\ runs\ once.\n
+comment2.params=speed
+comment2.target=void\ moveLeft(int)
+comment2.text=\n\ Move\ to\ left\ (to\ make\ hero\ look\ like\ they\ are\ moving\ right)\n
+comment3.params=speed
+comment3.target=void\ moveRight(int)
+comment3.text=\n\ Move\ to\ right\ (to\ make\ hero\ look\ like\ they\ are\ moving\ left)\n
+numComments=4
