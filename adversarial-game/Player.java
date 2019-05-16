@@ -7,7 +7,7 @@ import java.util.List;
  * @author R. Gordon
  * @version May 8, 2019
  */
-public class Player extends Collision
+public abstract class Player extends Collision
 {
     /**
      * Instance variables
@@ -43,16 +43,26 @@ public class Player extends Collision
     private GreenfootImage walkingRightImages[];
     private GreenfootImage walkingLeftImages[];
     private static final int WALK_ANIMATION_DELAY = 8;
-    private static final int COUNT_OF_WALKING_IMAGES = 2;
+    
+    // Keeps track of total number of walking image frames
+    int countOfWalkingImages;
+    
+    // Keeps track of what frame is currently being used in animation
     private int walkingFrames;
+    
+    // Name of player images
+    private String imageNamePrefix;
 
     /**
      * Constructor
      * 
      * This runs once when the Player object is created.
      */
-    Player(int startingX)
+    Player(int startingX, String playerName, int walkingImagesCount)
     {
+        // Assigned how many walking image frames there are
+        countOfWalkingImages = walkingImagesCount;
+        
         // Game on
         isGameOver = false;
 
@@ -61,18 +71,21 @@ public class Player extends Collision
 
         // Facing right to start
         horizontalDirection = FACING_RIGHT;
+        
+        // Set the image name prefix (guile, viga, et cetera);
+        this.imageNamePrefix = playerName;
 
         // Set image
-        setImage("hero-jump-down-right.png");
+        setImage(imageNamePrefix + "-jump-down-right.png");
 
         // Initialize the 'walking' arrays
-        walkingRightImages = new GreenfootImage[COUNT_OF_WALKING_IMAGES];
-        walkingLeftImages = new GreenfootImage[COUNT_OF_WALKING_IMAGES];
+        walkingRightImages = new GreenfootImage[countOfWalkingImages];
+        walkingLeftImages = new GreenfootImage[countOfWalkingImages];
 
         // Load walking images from disk
         for (int i = 0; i < walkingRightImages.length; i++)
         {
-            walkingRightImages[i] = new GreenfootImage("hero-walk-right-" + i + ".png");
+            walkingRightImages[i] = new GreenfootImage(imageNamePrefix + "-walk-right-" + i + ".png");
 
             // Create left-facing images by mirroring horizontally
             walkingLeftImages[i] = new GreenfootImage(walkingRightImages[i]);
@@ -84,7 +97,7 @@ public class Player extends Collision
     }
 
     /**
-     * Act - do whatever the Hero wants to do. This method is called whenever
+     * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
@@ -129,7 +142,7 @@ public class Player extends Collision
     }
 
     /**
-     * Should the hero be falling right now?
+     * Should the player be falling right now?
      */
     public void checkFall()
     {
@@ -141,20 +154,20 @@ public class Player extends Collision
             // Set image
             if (horizontalDirection == FACING_RIGHT && Greenfoot.isKeyDown("right") == false)
             {
-                setImage("hero-right.png");
+                setImage(imageNamePrefix + "-right.png");
             }
             else if (horizontalDirection == FACING_LEFT && Greenfoot.isKeyDown("left") == false)
             {
-                setImage("hero-left.png");
+                setImage(imageNamePrefix + "-left.png");
             }
 
             // Get a reference to any object that's created from a subclass of Platform,
-            // that is below (or just below in front, or just below behind) the hero
+            // that is below (or just below in front, or just below behind) the player
             Actor directlyUnder = getOneObjectAtOffset(0, getImage().getHeight() / 2, Platform.class);
             Actor frontUnder = getOneObjectAtOffset(getImage().getWidth() / 3, getImage().getHeight() / 2, Platform.class);
             Actor rearUnder = getOneObjectAtOffset(0 - getImage().getWidth() / 3, getImage().getHeight() / 2, Platform.class);
 
-            // Bump the hero back up so that they are not "submerged" in a platform object
+            // Bump the player back up so that they are not "submerged" in a platform object
             if (directlyUnder != null)
             {
                 int correctedYPosition = directlyUnder.getY() - directlyUnder.getImage().getHeight() / 2 - this.getImage().getHeight() / 2;
@@ -178,16 +191,16 @@ public class Player extends Collision
     }
 
     /**
-     * Is the hero currently touching a solid object? (any subclass of Platform)
+     * Is the player currently touching a solid object? (any subclass of Platform)
      */
     public boolean onPlatform()
     {
-        // Get an reference to a solid object (subclass of Platform) below the hero, if one exists
+        // Get an reference to a solid object (subclass of Platform) below the player, if one exists
         Actor directlyUnder = getOneObjectAtOffset(0, getImage().getHeight() / 2, Platform.class);
         Actor frontUnder = getOneObjectAtOffset(getImage().getWidth() / 3, getImage().getHeight() / 2, Platform.class);
         Actor rearUnder = getOneObjectAtOffset(0 - getImage().getWidth() / 3, getImage().getHeight() / 2, Platform.class);
 
-        // If there is no solid object below (or slightly in front of or behind) the hero...
+        // If there is no solid object below (or slightly in front of or behind) the player...
         if (directlyUnder == null && frontUnder == null && rearUnder == null)
         {
             return false;   // Not on a solid object
@@ -199,7 +212,7 @@ public class Player extends Collision
     }
 
     /**
-     * Make the hero jump.
+     * Make the player jump.
      */
     public void jump()
     {
@@ -209,11 +222,11 @@ public class Player extends Collision
         // Set image
         if (horizontalDirection == FACING_RIGHT)
         {
-            setImage("hero-jump-up-right.png");
+            setImage(imageNamePrefix + "-jump-up-right.png");
         }
         else
         {
-            setImage("hero-jump-up-left.png");
+            setImage(imageNamePrefix + "-jump-up-left.png");
         }
 
         // Change the vertical speed to the power of the jump
@@ -224,7 +237,7 @@ public class Player extends Collision
     }
 
     /**
-     * Make the hero fall.
+     * Make the player fall.
      */
     public void fall()
     {
@@ -236,11 +249,11 @@ public class Player extends Collision
             // Set image
             if (horizontalDirection == FACING_RIGHT)
             {
-                setImage("hero-jump-down-right.png");
+                setImage(imageNamePrefix + "-jump-down-right.png");
             }
             else
             {
-                setImage("hero-jump-down-left.png");
+                setImage(imageNamePrefix + "-jump-down-left.png");
             }
         }
 
@@ -284,7 +297,7 @@ public class Player extends Collision
     }
 
     /**
-     * Move the hero to the right.
+     * Move the player to the right.
      */
     public void moveRight()
     {
@@ -301,11 +314,11 @@ public class Player extends Collision
             // Set appropriate jumping image
             if (verticalDirection == JUMPING_UP)
             {
-                setImage("hero-jump-up-right.png");
+                setImage(imageNamePrefix + "-jump-up-right.png");
             }
             else
             {
-                setImage("hero-jump-down-right.png");
+                setImage(imageNamePrefix + "-jump-down-right.png");
             }
         }
 
@@ -322,7 +335,7 @@ public class Player extends Collision
     }
 
     /**
-     * Move the hero to the left.
+     * Move the player to the left.
      */
     public void moveLeft()
     {
@@ -339,18 +352,18 @@ public class Player extends Collision
             // Set appropriate jumping image
             if (verticalDirection == JUMPING_UP)
             {
-                setImage("hero-jump-up-left.png");
+                setImage(imageNamePrefix + "-jump-up-left.png");
             }
             else
             {
-                setImage("hero-jump-down-left.png");
+                setImage(imageNamePrefix + "-jump-down-left.png");
             }
         }
 
         // Get object reference to world
         SideScrollingWorld world = (SideScrollingWorld) getWorld(); 
 
-        // Don't let hero go off left edge of scrollable world 
+        // Don't let player go off left edge of scrollable world 
         // (Allow movement only when not at left edge)
         if (getX() > 0)
         {
@@ -362,7 +375,7 @@ public class Player extends Collision
     }
 
     /**
-     * When the hero falls off the bottom of the screen,
+     * When the player falls off the bottom of the screen,
      * game is over. We must remove them.
      */
     public void checkGameOver()
@@ -370,13 +383,13 @@ public class Player extends Collision
         // Get object reference to world
         SideScrollingWorld world = (SideScrollingWorld) getWorld(); 
 
-        // Vertical position where hero no longer visible
+        // Vertical position where player no longer visible
         int offScreenVerticalPosition = (world.getHeight() + this.getImage().getHeight() / 2);
 
         // Off bottom of screen?
         if (this.getY() > offScreenVerticalPosition)
         {
-            // Remove the hero
+            // Remove the player
             isGameOver = true;
             world.setGameOver();
             world.removeObject(this);

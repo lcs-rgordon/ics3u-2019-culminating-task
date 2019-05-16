@@ -23,13 +23,18 @@ public class SideScrollingWorld extends World
     //              Should be a resolution that's a multiple of TILE_SIZE
     public static final int VISIBLE_WIDTH = 640;
     private static final int VISIBLE_HEIGHT = 480;
-    
+
     // Additional useful constants based on world size
     public static final int HALF_VISIBLE_WIDTH = VISIBLE_WIDTH / 2;
     private static final int HALF_VISIBLE_HEIGHT = VISIBLE_HEIGHT / 2;
 
+    // Names of all the players
+    // TO STUDENTS: Add to this list of constants if you wish to have additional player types
+    public static final String PLAYER_GUILE = "guile";
+    public static final String PLAYER_VIGA = "viga";
+
     // Main player
-    Player theHero;
+    Player playerOne;
 
     // Track whether game is on
     private boolean isGameOver;
@@ -60,7 +65,7 @@ public class SideScrollingWorld extends World
         addLeftGround();
         addFences();
         addClouds();
-        addHero();
+        addPlayerOne();
     }
 
     /**
@@ -130,26 +135,26 @@ public class SideScrollingWorld extends World
     }
 
     /**
-     * Add the hero to the world.
+     * Add the main player to the world.
      */
-    private void addHero()
+    private void addPlayerOne()
     {
         // Initial horizontal position
         int initialX = TILE_SIZE * 3;
 
-        // Instantiate the hero object
-        theHero = new Player(initialX);
+        // Instantiate the main player object object
+        playerOne = new Viga(initialX);
 
-        // Add hero in bottom left corner of screen
-        addObject(theHero, initialX, getHeight() / 4 * 3);
+        // Add player in bottom left corner of screen
+        addObject(playerOne, initialX, getHeight() / 4 * 3);
     }
 
     /**
-     * Return an object reference to the hero.
+     * Return an object reference to the first player.
      */
     public Player getMainPlayer()
     {
-        return theHero;
+        return playerOne;
     }
 
     /**

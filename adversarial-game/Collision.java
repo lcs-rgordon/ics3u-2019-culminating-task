@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * 
  * See: https://www.greenfoot.org/scenarios/9908
  */
-public class Collision extends Actor
+public abstract class Collision extends Actor
 {
     /** This method is a pixel perfect collision detection. Returns a List of all Actors, that are touched by this object */
     public List getTouchedObjects(Class clss)
